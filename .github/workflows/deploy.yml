@@ -45,26 +45,26 @@ jobs:
       - name: Deploy to production
         run: |
           echo "Deploying version ${{ steps.package-version.outputs.version }}"
-          echo "Docker image: ghcr.io/${{ github.repository }}/modern-node-template:${{ steps.package-version.outputs.version }}"
+          echo "Docker image: ghcr.io/${{ github.repository_owner }}/modern-node-template:${{ steps.package-version.outputs.version }}"
 
           # Pull the Docker image that was built
-          docker pull ghcr.io/${{ github.repository }}/modern-node-template:${{ steps.package-version.outputs.version }}
+          docker pull ghcr.io/${{ github.repository_owner }}/modern-node-template:${{ steps.package-version.outputs.version }}
 
           # Example deployment commands - customize based on your platform:
           # 
           # For Kubernetes:
-          # kubectl set image deployment/app-deployment app=ghcr.io/${{ github.repository }}/modern-node-template:${{ steps.package-version.outputs.version }}
+          # kubectl set image deployment/app-deployment app=ghcr.io/${{ github.repository_owner }}/modern-node-template:${{ steps.package-version.outputs.version }}
           # 
           # For Docker Swarm:
-          # docker service update --image ghcr.io/${{ github.repository }}/modern-node-template:${{ steps.package-version.outputs.version }} app-service
+          # docker service update --image ghcr.io/${{ github.repository_owner }}/modern-node-template:${{ steps.package-version.outputs.version }} app-service
           # 
           # For AWS ECS:
           # aws ecs update-service --cluster my-cluster --service my-service --force-new-deployment
           # 
           # For Google Cloud Run:
-          # gcloud run deploy my-service --image ghcr.io/${{ github.repository }}/modern-node-template:${{ steps.package-version.outputs.version }}
+          # gcloud run deploy my-service --image ghcr.io/${{ github.repository_owner }}/modern-node-template:${{ steps.package-version.outputs.version }}
           # 
           # For Azure Container Instances:
-          # az container create --resource-group my-rg --name my-container --image ghcr.io/${{ github.repository }}/modern-node-template:${{ steps.package-version.outputs.version }}
+          # az container create --resource-group my-rg --name my-container --image ghcr.io/${{ github.repository_owner }}/modern-node-template:${{ steps.package-version.outputs.version }}
 
           echo "Deployment completed successfully!"
