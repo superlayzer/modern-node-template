@@ -44,7 +44,7 @@ npm start
 - **Environment Management** - Type-safe environment variables with dotenv
 - **Winston Logging** - Structured logging with multiple transports
 - **CI/CD Pipeline** - GitHub Actions for automated testing and deployment
-- **Automated Tagging** - Version tagging based on package.json
+- **Semantic Versioning** - Automatic version bumping based on conventional commits
 
 ## 🛠️ Tech Stack
 
@@ -58,7 +58,7 @@ npm start
 - **Environment**: dotenv for environment variable management
 - **Logging**: Winston for structured logging
 - **CI/CD**: GitHub Actions for automated workflows
-- **Versioning**: Automated tagging and releases
+- **Versioning**: Semantic versioning with automatic releases
 
 ## 📦 Development
 
@@ -188,32 +188,37 @@ This project includes GitHub Actions workflows for automated testing, deployment
   - Runs linting, formatting checks, and tests
   - Generates coverage reports
 
-- **Tag Release** (`.github/workflows/tag.yml`)
-  - Automatically creates version tags on push to `main`
-  - Uses version from `package.json`
-  - Creates tags like `v1.0.0`, `v1.0.1`, etc.
+- **Semantic Release** (`.github/workflows/tag.yml`)
+  - Automatically bumps version based on commit types
+  - Creates GitHub releases with changelog
+  - Updates package.json version
 
 - **Deploy** (`.github/workflows/deploy.yml`)
   - Runs after successful CI completion
   - Deploys to production (customize based on your platform)
   - Examples included for Vercel, Railway, Heroku, AWS
 
-### Version Management
+### Semantic Versioning
 
-The project uses automated versioning based on `package.json`:
+The project uses semantic-release for automatic versioning based on conventional commits:
 
-1. **Update version** in `package.json` when ready to release
-2. **Push to main** → Tag is automatically created
-3. **Create GitHub Release** from the generated tag
+**Commit Types:**
+- `feat:` → Minor version bump (1.0.0 → 1.1.0)
+- `fix:` → Patch version bump (1.1.0 → 1.1.1)
+- `BREAKING CHANGE:` → Major version bump (1.1.1 → 2.0.0)
+- `docs:`, `style:`, `refactor:`, `test:`, `chore:` → No version bump
+
+**How it works:**
+1. **Write conventional commits** → Follow the commit format
+2. **Push to main** → Semantic-release analyzes commits
+3. **Automatic release** → Version bumped, tag created, GitHub release generated
 
 ```bash
-# Example: Update version for a new release
-npm version patch  # 1.0.0 → 1.0.1
-npm version minor  # 1.0.1 → 1.1.0
-npm version major  # 1.1.0 → 2.0.0
-
-# Push to trigger tagging
-git push origin main
+# Examples of commits that trigger releases:
+git commit -m "feat: add user authentication"     # 1.0.0 → 1.1.0
+git commit -m "fix: resolve login bug"            # 1.1.0 → 1.1.1
+git commit -m "feat!: breaking change in API"     # 1.1.1 → 2.0.0
+git commit -m "docs: update README"               # No version bump
 ```
 
 ### Setup
