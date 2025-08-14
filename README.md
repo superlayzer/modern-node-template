@@ -31,6 +31,7 @@ npm run prepare
 - **ES Modules** - Modern ES module support
 - **Hot Reload** - Development with nodemon
 - **Modern Runtime** - tsx for fast TypeScript execution
+- **Vitest** - Fast unit testing with coverage and UI
 
 ## 🛠️ Tech Stack
 
@@ -39,6 +40,7 @@ npm run prepare
 - **Code Quality**: ESLint v9 + Prettier
 - **Git Hooks**: Husky + lint-staged + commitlint
 - **Development**: nodemon + tsx
+- **Testing**: Vitest + coverage + UI
 - **Module System**: ES Modules
 
 ## 📦 Development
@@ -49,6 +51,11 @@ npm run dev
 
 # Run production build
 npm start
+
+# Run tests
+npm test              # Watch mode
+npm run test:run      # Single run
+npm run test:coverage # With coverage
 
 # Check code quality
 npm run lint
@@ -62,18 +69,27 @@ src/
 ├── index.ts              # Main entry point
 ├── utils/                # Utility functions
 │   └── test.ts          # Example utility
-├── types/                # TypeScript type definitions
-├── config/               # Configuration files
-└── services/             # Business logic services
+├── __tests__/           # Test files
+│   ├── utils.test.ts    # Utils tests
+│   └── app.test.ts      # App tests
+├── types/                # TypeScript type definitions (create as needed)
+├── config/               # Configuration files (create as needed)
+└── services/             # Business logic services (create as needed)
+```
 
-# Configuration Files
+## 📁 Configuration Files
+
+```
 ├── tsconfig.json         # TypeScript configuration
 ├── eslint.config.js      # ESLint v9 flat config
 ├── .prettierrc          # Prettier configuration
 ├── nodemon.json         # Development server config
 ├── .lintstagedrc.js     # Pre-commit hooks
 ├── commitlint.config.js # Commit message rules
+├── vitest.config.ts     # Test configuration
 └── .husky/              # Git hooks
+```
+
 ```
 
 ## 🔧 Available Scripts
@@ -82,6 +98,9 @@ src/
 | ---------------------- | ---------------------------------------- |
 | `npm start`            | Run production build                     |
 | `npm run dev`          | Start development server with hot reload |
+| `npm test`             | Run tests in watch mode                  |
+| `npm run test:run`     | Run tests once (CI mode)                 |
+| `npm run test:coverage`| Run tests with coverage report           |
 | `npm run lint`         | Check code quality with ESLint           |
 | `npm run lint:fix`     | Fix ESLint issues automatically          |
 | `npm run format`       | Format code with Prettier                |
@@ -106,7 +125,7 @@ src/
 
 ### Git Hooks
 
-- **Pre-commit**: Run ESLint and Prettier on staged files
+- **Pre-commit**: Run ESLint, Prettier, and tests on staged files
 - **Commit-msg**: Validate conventional commit format
 
 ## 📝 Conventional Commits
@@ -114,6 +133,7 @@ src/
 This project enforces conventional commit messages:
 
 ```
+
 type(scope): description
 
 Examples:
@@ -124,7 +144,8 @@ style: format code
 refactor: simplify user service
 test: add unit tests
 chore: update dependencies
-```
+
+````
 
 ## 🔗 Path Mapping
 
@@ -136,7 +157,7 @@ import { something } from '../../../utils/something';
 
 // Use
 import { something } from '@/utils/something';
-```
+````
 
 ## 🚀 Deployment
 
@@ -174,10 +195,11 @@ CMD ["node", "dist/index.js"]
 
 1. **Create feature branch**: `git checkout -b feature/amazing-feature`
 2. **Make changes**: Write your code
-3. **Check quality**: `npm run lint && npm run format:check`
-4. **Commit changes**: `git commit -m 'feat: add amazing feature'`
-5. **Push branch**: `git push origin feature/amazing-feature`
-6. **Create PR**: Open pull request
+3. **Run tests**: `npm test` (watch mode) or `npm run test:run` (single run)
+4. **Check quality**: `npm run lint && npm run format:check`
+5. **Commit changes**: `git commit -m 'feat: add amazing feature'` (pre-commit runs automatically)
+6. **Push branch**: `git push origin feature/amazing-feature`
+7. **Create PR**: Open pull request
 
 ## 🔧 Customization
 
