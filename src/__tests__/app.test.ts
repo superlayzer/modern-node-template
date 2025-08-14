@@ -10,7 +10,7 @@ describe('App Module', () => {
     });
 
     it('should have the correct name', () => {
-      expect(app.name).toBe('your-project-name');
+      expect(app.name).toBe('modern-node-template');
     });
 
     it('should have the correct version', () => {

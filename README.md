@@ -1,4 +1,4 @@
-# Node.js TypeScript Project Template
+# Modern Node.js TypeScript Template
 
 A modern Node.js TypeScript project template with enterprise-grade tooling and best practices.
 
@@ -6,7 +6,7 @@ A modern Node.js TypeScript project template with enterprise-grade tooling and b
 
 ```bash
 # Clone this template
-git clone https://github.com/superlayzer/node-typescript-template.git your-project-name
+git clone https://github.com/superlayzer/modern-node-template.git your-project-name
 cd your-project-name
 
 # Update project details
@@ -18,6 +18,11 @@ npm pkg set author="Your Name"
 # Install dependencies and setup
 npm install
 npm run prepare
+
+# Verify everything is working
+npm run test:run
+npm run lint
+npm start
 ```
 
 ## 🚀 Features
@@ -222,7 +227,7 @@ npm install -D package-name
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/superlayzer/node-typescript-template/issues)
+- **Issues**: [GitHub Issues](https://github.com/superlayzer/modern-node-template/issues)
 - **Documentation**: This README file contains all the documentation you need
 
 ## 📄 License

@@ -1,7 +1,7 @@
 {
-  "name": "your-project-name",
+  "name": "modern-node-template",
   "version": "1.0.0",
-  "description": "A Node.js TypeScript project template with modern tooling",
+  "description": "A modern Node.js TypeScript project template with enterprise-grade tooling",
   "type": "module",
   "scripts": {
     "start": "tsx src/index.ts",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:superlayzer/node-typescript-template.git"
+    "url": "git@github.com:superlayzer/modern-node-template.git"
   },
   "keywords": [
     "nodejs",
