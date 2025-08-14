@@ -49,6 +49,7 @@ export const getEnv = (
 
 // Export environment validation function
 export const validateEnvironment = (): void => {
+  // Use console.log for now to avoid circular dependency issues
   console.log('🔧 Validating environment configuration...');
 
   // In test environment, be more lenient with validation

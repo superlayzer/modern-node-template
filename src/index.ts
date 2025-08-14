@@ -1,9 +1,10 @@
 import { testMessage } from '@/utils/test';
 import { env, validateEnvironment } from '@/config/env';
+import { logger } from '@/config/logger';
 
-console.log('🚀 Modern Node.js TypeScript Template');
-console.log(testMessage);
-console.log('✨ Ready to build amazing things!');
+logger.info('🚀 Modern Node.js TypeScript Template');
+logger.info(testMessage);
+logger.info('✨ Ready to build amazing things!');
 
 // Validate environment configuration
 validateEnvironment();
@@ -15,9 +16,9 @@ export const app = {
   port: env.PORT,
   environment: env.NODE_ENV,
   start: () => {
-    console.log(`🚀 ${env.APP_NAME} v${env.APP_VERSION} started successfully!`);
-    console.log(`🌍 Environment: ${env.NODE_ENV}`);
-    console.log(`🚀 Port: ${env.PORT}`);
-    console.log(`📊 Log Level: ${env.LOG_LEVEL}`);
+    logger.info(`🚀 ${env.APP_NAME} v${env.APP_VERSION} started successfully!`);
+    logger.info(`🌍 Environment: ${env.NODE_ENV}`);
+    logger.info(`🚀 Port: ${env.PORT}`);
+    logger.info(`📊 Log Level: ${env.LOG_LEVEL}`);
   },
 };

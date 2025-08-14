@@ -2,6 +2,7 @@ export const testMessage =
   '✅ Path mapping and ES modules are working perfectly!';
 
 export const validateSetup = () => {
+  // Use console.log for now to avoid circular dependency issues
   console.log('🔧 Validating project setup...');
   console.log('✅ TypeScript configuration');
   console.log('✅ ESLint v9 with flat config');

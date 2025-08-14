@@ -42,6 +42,7 @@ npm start
 - **Modern Runtime** - tsx for fast TypeScript execution
 - **Vitest** - Fast unit testing with coverage and UI
 - **Environment Management** - Type-safe environment variables with dotenv
+- **Winston Logging** - Structured logging with multiple transports
 
 ## 🛠️ Tech Stack
 
@@ -53,6 +54,7 @@ npm start
 - **Testing**: Vitest + coverage + UI
 - **Module System**: ES Modules
 - **Environment**: dotenv for environment variable management
+- **Logging**: Winston for structured logging
 
 ## 📦 Development
 
@@ -227,7 +229,45 @@ For feature flags in production applications, consider using dedicated feature f
 - [Unleash](https://unleash.github.io/)
 - [Flagsmith](https://flagsmith.com/)
 
-These provide better management, A/B testing, and gradual rollouts than environment variables.`
+These provide better management, A/B testing, and gradual rollouts than environment variables.
+
+## 📝 Logging
+
+This project uses Winston for structured logging with multiple transports and environment-based log levels.
+
+### Features
+
+- **Multiple Transports**: Console and file logging
+- **Environment-Based Levels**: Debug in development, warn in production
+- **Colored Output**: Different colors for different log levels
+- **Timestamp**: All logs include timestamps
+- **File Logs**: Separate error and combined log files
+
+### Usage
+
+```typescript
+import { logger } from '@/config/logger';
+
+// Different log levels
+logger.error('Error message');
+logger.warn('Warning message');
+logger.info('Info message');
+logger.http('HTTP request message');
+logger.debug('Debug message (development only)');
+```
+
+### Log Files
+
+- `logs/error.log` - Only error level messages
+- `logs/all.log` - All log messages
+
+### Log Levels
+
+- **error** (0) - Application errors
+- **warn** (1) - Warning messages
+- **info** (2) - General information
+- **http** (3) - HTTP request logs
+- **debug** (4) - Debug information (development only)`
 
 ## 🚀 Deployment
 
