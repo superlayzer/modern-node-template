@@ -4,29 +4,20 @@ A modern Node.js TypeScript project template with enterprise-grade tooling and b
 
 ## 🚀 Quick Start
 
-### Option 1: Use the Create Script (Recommended)
-
 ```bash
-# From the template directory
-./scripts/create-project.sh my-awesome-app
-```
+# Clone this template
+git clone https://github.com/superlayzer/node-typescript-template.git your-project-name
+cd your-project-name
 
-This will:
+# Update project details
+npm pkg set name="your-actual-project-name"
+npm pkg set description="Your project description"
+npm pkg set repository.url="git@github.com:yourusername/your-project-name.git"
+npm pkg set author="Your Name"
 
-1. Create a new project directory
-2. Copy the template
-3. Run the setup script automatically
-4. Configure everything for you
-
-### Option 2: Manual Setup
-
-```bash
-# Copy the template
-cp -r node-typescript-template my-awesome-app
-cd my-awesome-app
-
-# Run the setup script
-./setup.sh
+# Install dependencies and setup
+npm install
+npm run prepare
 ```
 
 ## 🚀 Features
@@ -50,33 +41,7 @@ cd my-awesome-app
 - **Development**: nodemon + tsx
 - **Module System**: ES Modules
 
-## 📦 Quick Start
-
-### 1. Clone and Setup
-
-```bash
-# Clone this template
-git clone https://github.com/superlayzer/node-typescript-template.git your-project-name
-cd your-project-name
-
-# Install dependencies
-npm install
-
-# Setup Git hooks
-npm run prepare
-```
-
-### 2. Update Project Details
-
-```bash
-# Update package.json
-npm pkg set name="your-actual-project-name"
-npm pkg set description="Your project description"
-npm pkg set repository.url="git@github.com:yourusername/your-project-name.git"
-npm pkg set author="Your Name"
-```
-
-### 3. Start Development
+## 📦 Development
 
 ```bash
 # Start development server
