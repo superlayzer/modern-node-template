@@ -7,8 +7,8 @@ A modern Node.js TypeScript project template with enterprise-grade tooling and b
 ### Option 1: Use the Create Script (Recommended)
 
 ```bash
-# From the layzer directory
-./create-project.sh my-awesome-app
+# From the template directory
+./scripts/create-project.sh my-awesome-app
 ```
 
 This will:
@@ -56,7 +56,7 @@ cd my-awesome-app
 
 ```bash
 # Clone this template
-git clone <your-template-repo> your-project-name
+git clone https://github.com/superlayzer/node-typescript-template.git your-project-name
 cd your-project-name
 
 # Install dependencies
@@ -235,8 +235,8 @@ npm install -D package-name
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/your-project-name/issues)
-- **Documentation**: [Project Wiki](https://github.com/yourusername/your-project-name/wiki)
+- **Issues**: [GitHub Issues](https://github.com/superlayzer/node-typescript-template/issues)
+- **Documentation**: [Project Wiki](https://github.com/superlayzer/node-typescript-template/wiki)
 
 ## 📄 License
 

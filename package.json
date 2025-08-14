@@ -14,9 +14,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:yourusername/your-project-name.git"
+    "url": "git@github.com:superlayzer/node-typescript-template.git"
   },
-  "keywords": [],
+  "keywords": [
+    "nodejs",
+    "typescript",
+    "template",
+    "eslint",
+    "prettier",
+    "husky",
+    "modern",
+    "enterprise"
+  ],
   "author": "Your Name",
   "license": "MIT",
   "engines": {
