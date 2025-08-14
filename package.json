@@ -1,7 +1,7 @@
 {
-  "name": "@superlayzer/db-core",
+  "name": "your-project-name",
   "version": "1.0.0",
-  "description": "Shared database library for Layzer with Drizzle ORM.",
+  "description": "A Node.js TypeScript project template with modern tooling",
   "type": "module",
   "scripts": {
     "start": "tsx src/index.ts",
@@ -14,11 +14,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github-layzer:superlayzer/db-core.git"
+    "url": "git@github.com:yourusername/your-project-name.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Your Name",
+  "license": "MIT",
   "engines": {
     "node": ">=24.0.0",
     "npm": ">=11.0.0"
