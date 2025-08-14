@@ -236,7 +236,7 @@ npm install -D package-name
 ## 📞 Support
 
 - **Issues**: [GitHub Issues](https://github.com/superlayzer/node-typescript-template/issues)
-- **Documentation**: [Project Wiki](https://github.com/superlayzer/node-typescript-template/wiki)
+- **Documentation**: This README file contains all the documentation you need
 
 ## 📄 License
 
