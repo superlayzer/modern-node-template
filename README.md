@@ -168,6 +168,41 @@ chore: update dependencies
 
 ````
 
+### Breaking Changes
+
+The project supports two formats for breaking changes:
+
+#### 1. Exclamation Mark in Type
+```bash
+git commit -m "feat!: breaking change in API"
+git commit -m "fix!: breaking fix that changes behavior"
+```
+
+#### 2. BREAKING CHANGE in Body
+```bash
+git commit -m "feat: new feature
+
+BREAKING CHANGE: This changes the API interface"
+```
+
+**Both formats trigger a major version bump** (1.1.1 → 2.0.0) when pushed to main.
+
+### Commit Types
+
+| Type | Description | Version Bump |
+|------|-------------|--------------|
+| `feat` | New feature | Minor (1.0.0 → 1.1.0) |
+| `fix` | Bug fix | Patch (1.1.0 → 1.1.1) |
+| `docs` | Documentation | None |
+| `style` | Code style changes | None |
+| `refactor` | Code refactoring | None |
+| `perf` | Performance improvements | None |
+| `test` | Adding tests | None |
+| `build` | Build system changes | None |
+| `ci` | CI/CD changes | None |
+| `chore` | Maintenance tasks | None |
+| `revert` | Revert previous commit | None |
+
 ## 🔗 Path Mapping
 
 Use `@/*` aliases for clean imports:
