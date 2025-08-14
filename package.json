@@ -13,7 +13,11 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "docker:build": "docker build -t modern-node-template -f docker/Dockerfile .",
+    "docker:run": "docker run modern-node-template",
+    "docker:run:prod": "docker run -e NODE_ENV=production modern-node-template",
+    "docker:dev": "docker run -v $(pwd)/src:/app/src modern-node-template npm run dev"
   },
   "repository": {
     "type": "git",

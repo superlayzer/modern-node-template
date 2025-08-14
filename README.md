@@ -45,6 +45,7 @@ npm start
 - **Winston Logging** - Structured logging with multiple transports
 - **CI/CD Pipeline** - GitHub Actions for automated testing and deployment
 - **Semantic Versioning** - Automatic version bumping based on conventional commits
+- **Docker Support** - Multi-stage Docker builds with production optimization
 
 ## 🛠️ Tech Stack
 
@@ -59,6 +60,7 @@ npm start
 - **Logging**: Winston for structured logging
 - **CI/CD**: GitHub Actions for automated workflows
 - **Versioning**: Semantic versioning with automatic releases
+- **Containerization**: Docker with multi-stage builds
 
 ## 📦 Development
 
@@ -123,6 +125,9 @@ src/
 | `npm run format`       | Format code with Prettier                |
 | `npm run format:check` | Check code formatting                    |
 | `npm run prepare`      | Setup Git hooks                          |
+| `npm run docker:build` | Build Docker image                       |
+| `npm run docker:run`   | Run Docker container                     |
+| `npm run docker:dev`   | Run Docker container in development mode |
 
 ## 🎯 Code Quality
 
@@ -282,6 +287,69 @@ brew install act  # macOS
 # Run CI workflow locally
 act push
 ```
+
+## 🐳 Docker Support
+
+This project includes Docker support with multi-stage builds for production optimization.
+
+### Local Development
+
+```bash
+# Build Docker image
+npm run docker:build
+
+# Run container (uses default environment)
+npm run docker:run
+
+# Run with custom environment
+npm run docker:run:prod
+
+# Development mode with volume mounting
+npm run docker:dev
+```
+
+### Docker Features
+
+- **Multi-stage builds** - Optimized production images
+- **Non-root user** - Security best practices
+- **Layer caching** - Fast builds with GitHub Actions cache
+- **Production ready** - Minimal image size with Alpine Linux
+- **Simple execution** - Runs the application and exits
+- **Environment handling** - Uses `env.example` as base, override at runtime
+- **Organized structure** - Docker files in dedicated `docker/` folder
+
+### Docker Workflow
+
+The project includes automated Docker builds in the CI/CD pipeline:
+
+1. **Semantic Release** → Creates new version
+2. **Docker Build** → Builds and pushes Docker image
+3. **Image Tags** → Versioned tags (v1.0.0, v1.0, latest)
+
+### Environment Variables in Docker
+
+The Docker image uses `env.example` as the base environment configuration. You can override any environment variable at runtime:
+
+```bash
+# Override specific variables
+docker run -e NODE_ENV=production modern-node-template
+
+# Use a custom .env file
+docker run --env-file .env.production modern-node-template
+
+# Set all variables inline
+docker run -e NODE_ENV=production -e APP_NAME="My App" modern-node-template
+```
+
+### Setup Docker Hub
+
+To enable Docker image publishing:
+
+1. **Add secrets** to your GitHub repository:
+   - `DOCKER_USERNAME` - Your Docker Hub username
+   - `DOCKER_PASSWORD` - Your Docker Hub password/token
+
+2. **Images will be published** to: `yourusername/modern-node-template`
 
 ## 🌍 Environment Variables
 
