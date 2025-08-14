@@ -31,10 +31,16 @@ jobs:
       - name: Build application
         run: echo "Build step - customize based on your deployment needs"
 
+      - name: Get package version
+        id: package-version
+        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
       - name: Deploy to production
-        run: echo "Deploy step - customize based on your deployment platform"
-        # Examples:
-        # - For Vercel: npx vercel --prod
-        # - For Railway: npx @railway/cli deploy
-        # - For Heroku: npx heroku builds:create
-        # - For AWS: aws deploy
+        run: |
+          echo "Deploying version ${{ steps.package-version.outputs.version }}"
+          echo "Deploy step - customize based on your deployment platform"
+          # Examples:
+          # - For Vercel: npx vercel --prod
+          # - For Railway: npx @railway/cli deploy
+          # - For Heroku: npx heroku builds:create
+          # - For AWS: aws deploy

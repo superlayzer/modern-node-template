@@ -44,6 +44,7 @@ npm start
 - **Environment Management** - Type-safe environment variables with dotenv
 - **Winston Logging** - Structured logging with multiple transports
 - **CI/CD Pipeline** - GitHub Actions for automated testing and deployment
+- **Automated Tagging** - Version tagging based on package.json
 
 ## 🛠️ Tech Stack
 
@@ -57,6 +58,7 @@ npm start
 - **Environment**: dotenv for environment variable management
 - **Logging**: Winston for structured logging
 - **CI/CD**: GitHub Actions for automated workflows
+- **Versioning**: Automated tagging and releases
 
 ## 📦 Development
 
@@ -176,27 +178,49 @@ import { something } from '@/utils/something';
 
 ## 🚀 CI/CD Pipeline
 
-This project includes GitHub Actions workflows for automated testing and deployment.
+This project includes GitHub Actions workflows for automated testing, deployment, and versioning.
 
 ### Workflows
 
 - **CI/CD Pipeline** (`.github/workflows/ci.yml`)
   - Runs on push to `main`/`develop` and pull requests
-  - Tests against Node.js 18.x, 20.x, and 24.x
+  - Tests against Node.js 24.x
   - Runs linting, formatting checks, and tests
   - Generates coverage reports
-  - Uploads coverage to Codecov (optional)
+
+- **Tag Release** (`.github/workflows/tag.yml`)
+  - Automatically creates version tags on push to `main`
+  - Uses version from `package.json`
+  - Creates tags like `v1.0.0`, `v1.0.1`, etc.
 
 - **Deploy** (`.github/workflows/deploy.yml`)
   - Runs after successful CI completion
   - Deploys to production (customize based on your platform)
   - Examples included for Vercel, Railway, Heroku, AWS
 
+### Version Management
+
+The project uses automated versioning based on `package.json`:
+
+1. **Update version** in `package.json` when ready to release
+2. **Push to main** → Tag is automatically created
+3. **Create GitHub Release** from the generated tag
+
+```bash
+# Example: Update version for a new release
+npm version patch  # 1.0.0 → 1.0.1
+npm version minor  # 1.0.1 → 1.1.0
+npm version major  # 1.1.0 → 2.0.0
+
+# Push to trigger tagging
+git push origin main
+```
+
 ### Setup
 
 1. **Enable GitHub Actions** in your repository settings
-2. **Add Codecov token** (optional) in repository secrets as `CODECOV_TOKEN`
-3. **Customize deployment** in `.github/workflows/deploy.yml` for your platform
+2. **Customize deployment** in `.github/workflows/deploy.yml` for your platform
+3. **Grant permissions** for tag creation (if needed)
 
 ### Local Testing
 
