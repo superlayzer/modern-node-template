@@ -156,6 +156,10 @@ type(scope): description
 Examples:
 feat: add user authentication
 fix(auth): resolve login issue
+feat!: breaking change in API
+feat: new feature
+
+BREAKING CHANGE: This changes the API interface
 docs: update README
 style: format code
 refactor: simplify user service
@@ -205,7 +209,8 @@ The project uses semantic-release for automatic versioning based on conventional
 **Commit Types:**
 - `feat:` → Minor version bump (1.0.0 → 1.1.0)
 - `fix:` → Patch version bump (1.1.0 → 1.1.1)
-- `BREAKING CHANGE:` → Major version bump (1.1.1 → 2.0.0)
+- `feat!:` or `fix!:` → Major version bump (1.1.1 → 2.0.0)
+- `BREAKING CHANGE:` in body → Major version bump (1.1.1 → 2.0.0)
 - `docs:`, `style:`, `refactor:`, `test:`, `chore:` → No version bump
 
 **How it works:**
@@ -218,6 +223,9 @@ The project uses semantic-release for automatic versioning based on conventional
 git commit -m "feat: add user authentication"     # 1.0.0 → 1.1.0
 git commit -m "fix: resolve login bug"            # 1.1.0 → 1.1.1
 git commit -m "feat!: breaking change in API"     # 1.1.1 → 2.0.0
+git commit -m "feat: new API
+
+BREAKING CHANGE: This changes the API interface"   # 1.1.1 → 2.0.0
 git commit -m "docs: update README"               # No version bump
 ```
 
