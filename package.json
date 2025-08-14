@@ -4,7 +4,7 @@
   "description": "Shared database library for Layzer with Drizzle ORM.",
   "main": "index.js",
   "scripts": {
-    "start": "node --loader ts-node/esm index.ts",
+    "start": "ts-node index.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write .",
