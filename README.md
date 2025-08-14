@@ -3,16 +3,19 @@
 Shared database library for Layzer with Drizzle ORM.
 
 ## What it does
+
 - Defines database schemas and types
 - Provides database connection utilities
 - Exports migration functions for other services to use
 
 ## What it doesn't do
+
 - Cannot run migrations by itself (it's a library)
 - Cannot connect to databases independently
 - Cannot execute SQL commands
 
 ## Usage
+
 ```typescript
 // Import schemas and types
 import { users, User } from 'db-core';
@@ -25,6 +28,7 @@ await runMigrations();
 ```
 
 ## Commands
+
 ```bash
 # Generate new migrations
 pnpm db:generate
@@ -37,6 +41,7 @@ pnpm test
 ```
 
 ## Structure
+
 ```
 src/
 ├── schemas/          # Database table definitions
