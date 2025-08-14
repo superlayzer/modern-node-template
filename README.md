@@ -109,7 +109,7 @@ src/
 └── .husky/              # Git hooks
 ```
 
-```
+````
 
 ## 🔧 Available Scripts
 
@@ -147,43 +147,59 @@ src/
 
 ### Git Hooks
 
+This project uses **Husky** to manage Git hooks:
+
 - **Pre-commit**: Run ESLint, Prettier, and tests on staged files
-- **Commit-msg**: Validate conventional commit format
+- **Commit-msg**: Validate conventional commit format using commitlint
+
+**Setup**: Hooks are automatically installed when you run `npm install` (via the `prepare` script).
+
+**Configuration**:
+- Pre-commit hooks: `.lintstagedrc.js`
+- Commit message rules: `commitlint.config.js`
 
 ## 📝 Conventional Commits
 
 This project enforces conventional commit messages:
 
-```
-
+```bash
 type(scope): description
+````
 
-Examples:
+**Examples:**
+
+```bash
 feat: add user authentication
 fix(auth): resolve login issue
 feat!: breaking change in API
-feat: new feature
-
-BREAKING CHANGE: This changes the API interface
 docs: update README
 style: format code
 refactor: simplify user service
 test: add unit tests
 chore: update dependencies
+```
 
-````
+**Breaking Change Example:**
+
+```bash
+feat: new feature
+
+BREAKING CHANGE: This changes the API interface
+```
 
 ### Breaking Changes
 
 The project supports two formats for breaking changes:
 
 #### 1. Exclamation Mark in Type
+
 ```bash
 git commit -m "feat!: breaking change in API"
 git commit -m "fix!: breaking fix that changes behavior"
 ```
 
 #### 2. BREAKING CHANGE in Body
+
 ```bash
 git commit -m "feat: new feature
 
@@ -194,19 +210,19 @@ BREAKING CHANGE: This changes the API interface"
 
 ### Commit Types
 
-| Type | Description | Version Bump |
-|------|-------------|--------------|
-| `feat` | New feature | Minor (1.0.0 → 1.1.0) |
-| `fix` | Bug fix | Patch (1.1.0 → 1.1.1) |
-| `docs` | Documentation | None |
-| `style` | Code style changes | None |
-| `refactor` | Code refactoring | None |
-| `perf` | Performance improvements | None |
-| `test` | Adding tests | None |
-| `build` | Build system changes | None |
-| `ci` | CI/CD changes | None |
-| `chore` | Maintenance tasks | None |
-| `revert` | Revert previous commit | None |
+| Type       | Description              | Version Bump          |
+| ---------- | ------------------------ | --------------------- |
+| `feat`     | New feature              | Minor (1.0.0 → 1.1.0) |
+| `fix`      | Bug fix                  | Patch (1.1.0 → 1.1.1) |
+| `docs`     | Documentation            | None                  |
+| `style`    | Code style changes       | None                  |
+| `refactor` | Code refactoring         | None                  |
+| `perf`     | Performance improvements | None                  |
+| `test`     | Adding tests             | None                  |
+| `build`    | Build system changes     | None                  |
+| `ci`       | CI/CD changes            | None                  |
+| `chore`    | Maintenance tasks        | None                  |
+| `revert`   | Revert previous commit   | None                  |
 
 ## 🔗 Path Mapping
 
@@ -247,6 +263,7 @@ This project includes GitHub Actions workflows for automated testing, deployment
 The project uses semantic-release for automatic versioning based on conventional commits:
 
 **Commit Types:**
+
 - `feat:` → Minor version bump (1.0.0 → 1.1.0)
 - `fix:` → Patch version bump (1.1.0 → 1.1.1)
 - `feat!:` or `fix!:` → Major version bump (1.1.1 → 2.0.0)
@@ -254,6 +271,7 @@ The project uses semantic-release for automatic versioning based on conventional
 - `docs:`, `style:`, `refactor:`, `test:`, `chore:` → No version bump
 
 **How it works:**
+
 1. **Write conventional commits** → Follow the commit format
 2. **Push to main** → Semantic-release analyzes commits
 3. **Automatic release** → Version bumped, tag created, GitHub release generated
@@ -382,11 +400,13 @@ This project uses dotenv for environment variable management with type-safe conf
 ### Setup
 
 1. Copy the example environment file:
+
    ```bash
    cp env.example .env
    ```
 
 2. Edit `.env` with your actual values:
+
    ```bash
    # Environment Configuration
    NODE_ENV=development
@@ -415,6 +435,7 @@ const port = getEnv('PORT');
 
 // Validate environment on startup
 validateEnvironment();
+```
 
 ### Features
 
@@ -427,6 +448,7 @@ validateEnvironment();
 ### Adding Feature Flags
 
 For feature flags in production applications, consider using dedicated feature flag services like:
+
 - [LaunchDarkly](https://launchdarkly.com/)
 - [Split.io](https://split.io/)
 - [Unleash](https://unleash.github.io/)
@@ -545,4 +567,3 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ---
 
 **This template provides a solid foundation for modern Node.js TypeScript projects with enterprise-grade tooling and best practices.** 🚀
-````
