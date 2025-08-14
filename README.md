@@ -43,6 +43,7 @@ npm start
 - **Vitest** - Fast unit testing with coverage and UI
 - **Environment Management** - Type-safe environment variables with dotenv
 - **Winston Logging** - Structured logging with multiple transports
+- **CI/CD Pipeline** - GitHub Actions for automated testing and deployment
 
 ## 🛠️ Tech Stack
 
@@ -55,6 +56,7 @@ npm start
 - **Module System**: ES Modules
 - **Environment**: dotenv for environment variable management
 - **Logging**: Winston for structured logging
+- **CI/CD**: GitHub Actions for automated workflows
 
 ## 📦 Development
 
@@ -170,6 +172,43 @@ import { something } from '../../../utils/something';
 
 // Use
 import { something } from '@/utils/something';
+```
+
+## 🚀 CI/CD Pipeline
+
+This project includes GitHub Actions workflows for automated testing and deployment.
+
+### Workflows
+
+- **CI/CD Pipeline** (`.github/workflows/ci.yml`)
+  - Runs on push to `main`/`develop` and pull requests
+  - Tests against Node.js 18.x, 20.x, and 24.x
+  - Runs linting, formatting checks, and tests
+  - Generates coverage reports
+  - Uploads coverage to Codecov (optional)
+
+- **Deploy** (`.github/workflows/deploy.yml`)
+  - Runs after successful CI completion
+  - Deploys to production (customize based on your platform)
+  - Examples included for Vercel, Railway, Heroku, AWS
+
+### Setup
+
+1. **Enable GitHub Actions** in your repository settings
+2. **Add Codecov token** (optional) in repository secrets as `CODECOV_TOKEN`
+3. **Customize deployment** in `.github/workflows/deploy.yml` for your platform
+
+### Local Testing
+
+Test the CI pipeline locally:
+
+```bash
+# Install act (GitHub Actions local runner)
+brew install act  # macOS
+# or download from: https://github.com/nektos/act
+
+# Run CI workflow locally
+act push
 ```
 
 ## 🌍 Environment Variables
