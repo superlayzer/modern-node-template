@@ -323,8 +323,10 @@ npm run docker:dev
 The project includes automated Docker builds in the CI/CD pipeline:
 
 1. **Semantic Release** → Creates new version
-2. **Docker Build** → Builds and pushes Docker image
-3. **Image Tags** → Versioned tags (v1.0.0, v1.0, latest)
+2. **Docker Build** → Builds Docker image locally (no push)
+3. **Deploy** → Builds and uses Docker image for deployment
+
+**Note**: The Docker workflow is configured to build images locally without pushing to a registry. This avoids permission issues and simplifies the setup. Images are built fresh in each workflow run.
 
 ### Environment Variables in Docker
 
@@ -341,15 +343,21 @@ docker run --env-file .env.production modern-node-template
 docker run -e NODE_ENV=production -e APP_NAME="My App" modern-node-template
 ```
 
-### Setup Docker Hub
+### Docker Registry Setup (Optional)
 
-To enable Docker image publishing:
+If you want to push Docker images to a registry (Docker Hub, GHCR, etc.):
 
-1. **Add secrets** to your GitHub repository:
-   - `DOCKER_USERNAME` - Your Docker Hub username
-   - `DOCKER_PASSWORD` - Your Docker Hub password/token
+1. **Update the workflow** to enable pushing:
+   - Set `push: true` in `.github/workflows/docker.yml`
+   - Add registry authentication secrets
 
-2. **Images will be published** to: `yourusername/modern-node-template`
+2. **Add secrets** to your GitHub repository:
+   - `DOCKER_USERNAME` - Your registry username
+   - `DOCKER_PASSWORD` - Your registry password/token
+
+3. **Images will be published** to your chosen registry
+
+**Current setup**: Images are built locally for deployment without registry dependencies.
 
 ## 🌍 Environment Variables
 
