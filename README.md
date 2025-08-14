@@ -306,6 +306,21 @@ npm run docker:run:prod
 
 # Development mode with volume mounting
 npm run docker:dev
+
+# Docker Compose (simple app container)
+npm run docker:compose
+
+# Docker Compose development mode
+npm run docker:compose:dev
+
+# Build and run with Docker Compose
+npm run docker:compose:build
+
+# Stop Docker Compose services
+npm run docker:compose:down
+
+# View Docker Compose logs
+npm run docker:compose:logs
 ```
 
 ### Docker Features
@@ -317,6 +332,7 @@ npm run docker:dev
 - **Simple execution** - Runs the application and exits
 - **Environment handling** - Uses `env.example` as base, override at runtime
 - **Organized structure** - Docker files in dedicated `docker/` folder
+- **Docker Compose** - Simple multi-container development environment
 
 ### Docker Workflow
 

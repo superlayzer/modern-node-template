@@ -17,7 +17,12 @@
     "docker:build": "docker build -t modern-node-template -f docker/Dockerfile .",
     "docker:run": "docker run modern-node-template",
     "docker:run:prod": "docker run -e NODE_ENV=production modern-node-template",
-    "docker:dev": "docker run -v $(pwd)/src:/app/src modern-node-template npm run dev"
+    "docker:dev": "docker run -v $(pwd)/src:/app/src modern-node-template npm run dev",
+    "docker:compose": "docker-compose -f docker/docker-compose.yml up",
+    "docker:compose:dev": "docker-compose -f docker/docker-compose.dev.yml up",
+    "docker:compose:build": "docker-compose -f docker/docker-compose.yml up --build",
+    "docker:compose:down": "docker-compose -f docker/docker-compose.yml down",
+    "docker:compose:logs": "docker-compose -f docker/docker-compose.yml logs -f"
   },
   "repository": {
     "type": "git",
@@ -33,7 +38,17 @@
     "dotenv",
     "winston",
     "modern",
-    "enterprise"
+    "enterprise",
+    "docker",
+    "docker-compose",
+    "ci-cd",
+    "github-actions",
+    "semantic-release",
+    "conventional-commits",
+    "testing",
+    "vitest",
+    "nodemon",
+    "tsx"
   ],
   "author": "Your Name",
   "license": "MIT",
