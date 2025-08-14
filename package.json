@@ -1,5 +1,5 @@
 {
-  "name": "db-core",
+  "name": "@superlayzer/db-core",
   "version": "1.0.0",
   "description": "Shared database library for Layzer with Drizzle ORM.",
   "main": "index.js",
