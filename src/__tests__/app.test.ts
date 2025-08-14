@@ -10,11 +10,21 @@ describe('App Module', () => {
     });
 
     it('should have the correct name', () => {
-      expect(app.name).toBe('modern-node-template');
+      expect(app.name).toBe('Modern Node Template');
     });
 
     it('should have the correct version', () => {
       expect(app.version).toBe('1.0.0');
+    });
+
+    it('should have port property', () => {
+      expect(app).toHaveProperty('port');
+      expect(typeof app.port).toBe('number');
+    });
+
+    it('should have environment property', () => {
+      expect(app).toHaveProperty('environment');
+      expect(typeof app.environment).toBe('string');
     });
 
     it('should have start as a function', () => {
@@ -33,7 +43,7 @@ describe('App Module', () => {
       app.start();
 
       expect(consoleSpy).toHaveBeenCalledWith(
-        'Application started successfully!'
+        '🚀 Modern Node Template v1.0.0 started successfully!'
       );
 
       consoleSpy.mockRestore();

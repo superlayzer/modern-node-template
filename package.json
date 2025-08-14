@@ -26,6 +26,7 @@
     "eslint",
     "prettier",
     "husky",
+    "dotenv",
     "modern",
     "enterprise"
   ],
@@ -38,6 +39,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
+    "@types/node": "^24.2.1",
     "@typescript-eslint/eslint-plugin": "^8.39.1",
     "@typescript-eslint/parser": "^8.39.1",
     "@vitest/coverage-v8": "^2.1.9",
@@ -49,5 +51,8 @@
     "tsx": "^4.20.4",
     "typescript": "^5.9.2",
     "vitest": "^2.1.8"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.1"
   }
 }

@@ -19,6 +19,10 @@ npm pkg set author="Your Name"
 npm install
 npm run prepare
 
+# Setup environment variables
+cp env.example .env
+# Edit .env with your actual values
+
 # Verify everything is working
 npm run test:run
 npm run lint
@@ -37,6 +41,7 @@ npm start
 - **Hot Reload** - Development with nodemon
 - **Modern Runtime** - tsx for fast TypeScript execution
 - **Vitest** - Fast unit testing with coverage and UI
+- **Environment Management** - Type-safe environment variables with dotenv
 
 ## 🛠️ Tech Stack
 
@@ -47,6 +52,7 @@ npm start
 - **Development**: nodemon + tsx
 - **Testing**: Vitest + coverage + UI
 - **Module System**: ES Modules
+- **Environment**: dotenv for environment variable management
 
 ## 📦 Development
 
@@ -162,7 +168,66 @@ import { something } from '../../../utils/something';
 
 // Use
 import { something } from '@/utils/something';
-````
+```
+
+## 🌍 Environment Variables
+
+This project uses dotenv for environment variable management with type-safe configuration.
+
+### Setup
+
+1. Copy the example environment file:
+   ```bash
+   cp env.example .env
+   ```
+
+2. Edit `.env` with your actual values:
+   ```bash
+   # Environment Configuration
+   NODE_ENV=development
+   PORT=3000
+
+   # Application Configuration
+   APP_NAME=Your App Name
+   APP_VERSION=1.0.0
+   LOG_LEVEL=info
+   ```
+
+### Usage
+
+Import the environment configuration in your code:
+
+```typescript
+import { env, getEnv, validateEnvironment } from '@/config/env';
+
+// Access environment variables with type safety
+console.log(env.PORT); // number
+console.log(env.APP_NAME); // string
+console.log(env.LOG_LEVEL); // string
+
+// Use individual getter
+const port = getEnv('PORT');
+
+// Validate environment on startup
+validateEnvironment();
+
+### Features
+
+- **Type Safety**: All environment variables are typed
+- **Default Values**: Sensible defaults for development
+- **Validation**: Automatic validation of required variables
+- **Parsing**: Automatic parsing of numbers
+- **Error Handling**: Clear error messages for missing variables
+
+### Adding Feature Flags
+
+For feature flags in production applications, consider using dedicated feature flag services like:
+- [LaunchDarkly](https://launchdarkly.com/)
+- [Split.io](https://split.io/)
+- [Unleash](https://unleash.github.io/)
+- [Flagsmith](https://flagsmith.com/)
+
+These provide better management, A/B testing, and gradual rollouts than environment variables.`
 
 ## 🚀 Deployment
 
@@ -237,3 +302,4 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ---
 
 **This template provides a solid foundation for modern Node.js TypeScript projects with enterprise-grade tooling and best practices.** 🚀
+````

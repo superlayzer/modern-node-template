@@ -10,11 +10,8 @@
     "module": "ESNext",
     "target": "ES2022",
     "moduleResolution": "node",
-    "types": [],
-    // For nodejs:
-    // "lib": ["esnext"],
-    // "types": ["node"],
-    // and npm install -D @types/node
+    "lib": ["esnext"],
+    "types": ["node"],
 
     // Other Outputs
     "sourceMap": true,
@@ -42,5 +39,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true
-  }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "vitest.config.ts"]
 }
