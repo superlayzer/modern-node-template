@@ -1,0 +1,20 @@
+{
+  "name": "db-core",
+  "version": "1.0.0",
+  "description": "Shared database library for Layzer with Drizzle ORM.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --loader ts-node/esm index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github-layzer:superlayzer/db-core.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
+}
