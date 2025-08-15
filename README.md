@@ -42,7 +42,7 @@ npm start
 - **Hot Reload** - Development with nodemon
 - **Modern Runtime** - tsx for fast TypeScript execution
 - **Vitest** - Fast unit testing with coverage and UI
-- **Environment Management** - Type-safe environment variables with dotenv
+- **Environment Management** - Type-safe environment variables with Zod validation
 - **Winston Logging** - Structured logging with multiple transports
 - **CI/CD Pipeline** - GitHub Actions for automated testing and deployment
 - **Semantic Versioning** - Automatic version bumping based on conventional commits
@@ -57,7 +57,7 @@ npm start
 - **Development**: nodemon + tsx
 - **Testing**: Vitest + coverage + UI
 - **Module System**: ES Modules
-- **Environment**: dotenv for environment variable management
+- **Environment**: dotenv + Zod for type-safe environment variable management
 - **Logging**: Winston for structured logging
 - **CI/CD**: GitHub Actions for automated workflows
 - **Versioning**: Semantic versioning with automatic releases
@@ -396,7 +396,7 @@ If you want to push Docker images to a registry (Docker Hub, GHCR, etc.):
 
 ## 🌍 Environment Variables
 
-This project uses dotenv for environment variable management with type-safe configuration.
+This project uses dotenv + Zod for environment variable management with runtime type validation and type-safe configuration.
 
 ### Setup
 
@@ -426,28 +426,56 @@ This project uses dotenv for environment variable management with type-safe conf
 Import the environment configuration in your code:
 
 ```typescript
-import { env, getEnv, validateEnvironment } from '@/config/env';
+import { env, getEnv, validateEnvironment, envSchema } from '@/config/env';
 
 // Access environment variables with type safety
-console.log(env.PORT); // number
 console.log(env.APP_NAME); // string
-console.log(env.LOG_LEVEL); // string
+console.log(env.LOG_LEVEL); // 'error' | 'warn' | 'info' | 'http' | 'debug'
+console.log(env.NODE_ENV); // 'development' | 'production' | 'test'
 
-// Use individual getter
-const port = getEnv('PORT');
+// Use individual getter with type inference
+const appName = getEnv('APP_NAME'); // string
 
 // Validate environment on startup
 validateEnvironment();
+
+// Use schema for external validation
+const isValidEnv = envSchema.safeParse(process.env).success;
 ```
 
 ### Features
 
-- **Type Safety**: All environment variables are typed
+- **Runtime Validation**: Zod schemas validate environment variables at startup
+- **Type Safety**: All environment variables are typed with TypeScript inference
 - **Default Values**: Sensible defaults for development
-- **Validation**: Automatic validation of required variables
-- **Parsing**: Automatic parsing of numbers
-- **Error Handling**: Clear error messages for missing variables
-- **Flexible Configuration**: Optional PORT for non-web applications
+- **Enum Validation**: Strict validation for NODE_ENV and LOG_LEVEL
+- **Error Handling**: Clear error messages for validation failures
+- **Schema Export**: Environment schema available for external validation
+
+## 🔍 Zod Validation
+
+This project includes Zod for runtime type validation. The environment configuration uses Zod schemas for type-safe environment variable management.
+
+### Environment Validation
+
+The environment configuration uses Zod for runtime validation:
+
+```typescript
+import { envSchema } from '@/config/env';
+
+// Validate environment variables
+const result = envSchema.safeParse(process.env);
+if (!result.success) {
+  console.error('Environment validation failed:', result.error);
+}
+```
+
+### What's Demonstrated
+
+- **Runtime Validation**: Environment variables are validated at startup
+- **Type Safety**: Automatic TypeScript types from Zod schemas
+- **Error Handling**: Clear error messages for validation failures
+- **Default Values**: Sensible defaults for development
 
 ### Adding Feature Flags
 

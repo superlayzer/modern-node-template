@@ -1,59 +1,74 @@
 import dotenv from 'dotenv';
 import { resolve } from 'path';
+import { z } from 'zod';
 
 // Load environment variables from .env file
 dotenv.config({ path: resolve(process.cwd(), '.env') });
 
-// Environment configuration interface
-interface EnvironmentConfig {
-  NODE_ENV: string;
-  APP_NAME: string;
-  APP_VERSION: string;
-  LOG_LEVEL: string;
-}
+// Environment configuration schema
+const envSchema = z.object({
+  NODE_ENV: z
+    .enum(['development', 'production', 'test'])
+    .default('development'),
+  APP_NAME: z
+    .string()
+    .min(1, 'APP_NAME is required')
+    .default('Modern Node Template'),
+  APP_VERSION: z.string().min(1, 'APP_VERSION is required').default('1.0.0'),
+  LOG_LEVEL: z.enum(['error', 'warn', 'info', 'http', 'debug']).default('info'),
+});
+
+// Environment configuration type (inferred from schema)
+type EnvironmentConfig = z.infer<typeof envSchema>;
 
 // Parse and validate environment variables
-const parseEnvVar = (key: string, defaultValue?: string): string => {
-  const value = process.env[key];
-  if (!value && defaultValue === undefined) {
-    throw new Error(`Environment variable ${key} is required but not set`);
+const parseEnv = (): EnvironmentConfig => {
+  try {
+    return envSchema.parse({
+      NODE_ENV: process.env.NODE_ENV,
+      APP_NAME: process.env.APP_NAME,
+      APP_VERSION: process.env.APP_VERSION,
+      LOG_LEVEL: process.env.LOG_LEVEL,
+    });
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const issues = error.issues
+        .map((issue) => issue.path.join('.'))
+        .join(', ');
+      throw new Error(`Environment validation failed: ${issues}`);
+    }
+    throw error;
   }
-  return value || defaultValue || '';
 };
 
 // Export validated environment configuration
-export const env: EnvironmentConfig = {
-  NODE_ENV: parseEnvVar('NODE_ENV', 'development'),
-  APP_NAME: parseEnvVar('APP_NAME', 'Modern Node Template'),
-  APP_VERSION: parseEnvVar('APP_VERSION', '1.0.0'),
-  LOG_LEVEL: parseEnvVar('LOG_LEVEL', 'info'),
-};
+export const env = parseEnv();
 
 // Export individual getters for convenience
-export const getEnv = (
-  key: keyof EnvironmentConfig
-): EnvironmentConfig[keyof EnvironmentConfig] => {
+export const getEnv = <K extends keyof EnvironmentConfig>(
+  key: K
+): EnvironmentConfig[K] => {
   return env[key];
 };
 
 // Export environment validation function
 export const validateEnvironment = (): void => {
-  // Use console.log for now to avoid circular dependency issues
   console.log('🔧 Validating environment configuration...');
 
-  // In test environment, be more lenient with validation
-  const isTestEnv = process.env.NODE_ENV === 'test';
-  const requiredVars = isTestEnv ? ['NODE_ENV'] : ['NODE_ENV', 'APP_NAME'];
-  const missingVars = requiredVars.filter((key) => !process.env[key]);
+  try {
+    // Re-parse to ensure validation
+    parseEnv();
 
-  if (missingVars.length > 0) {
-    throw new Error(
-      `Missing required environment variables: ${missingVars.join(', ')}`
-    );
+    console.log('✅ Environment configuration validated successfully');
+    console.log(`📋 App: ${env.APP_NAME} v${env.APP_VERSION}`);
+    console.log(`🌍 Environment: ${env.NODE_ENV}`);
+    console.log(`📊 Log Level: ${env.LOG_LEVEL}`);
+  } catch (error) {
+    console.error('❌ Environment validation failed:', error);
+    throw error;
   }
-
-  console.log('✅ Environment configuration validated successfully');
-  console.log(`📋 App: ${env.APP_NAME} v${env.APP_VERSION}`);
-  console.log(`🌍 Environment: ${env.NODE_ENV}`);
-  console.log(`📊 Log Level: ${env.LOG_LEVEL}`);
 };
+
+// Export the schema for external use
+export { envSchema };
+export type { EnvironmentConfig };

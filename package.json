@@ -36,6 +36,7 @@
     "prettier",
     "husky",
     "dotenv",
+    "zod",
     "winston",
     "modern",
     "enterprise",
@@ -80,6 +81,7 @@
   },
   "dependencies": {
     "dotenv": "^17.2.1",
-    "winston": "^3.17.0"
+    "winston": "^3.17.0",
+    "zod": "^4.0.17"
   }
 }

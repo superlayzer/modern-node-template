@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { env, getEnv, validateEnvironment } from '@/config/env';
+import { env, getEnv, validateEnvironment, envSchema } from '@/config/env';
 
 describe('Environment Configuration', () => {
   const originalEnv = process.env;
@@ -82,6 +82,62 @@ describe('Environment Configuration', () => {
     });
   });
 
+  describe('zod schema', () => {
+    it('should validate correct environment data', () => {
+      const validData = {
+        NODE_ENV: 'development',
+        APP_NAME: 'Test App',
+        APP_VERSION: '1.0.0',
+        LOG_LEVEL: 'info',
+      };
+
+      const result = envSchema.parse(validData);
+      expect(result).toEqual(validData);
+    });
+
+    it('should provide default values', () => {
+      const dataWithDefaults = {
+        APP_NAME: 'Test App',
+        APP_VERSION: '1.0.0',
+      };
+
+      const result = envSchema.parse(dataWithDefaults);
+      expect(result.NODE_ENV).toBe('development');
+      expect(result.LOG_LEVEL).toBe('info');
+    });
+
+    it('should reject invalid NODE_ENV', () => {
+      const invalidData = {
+        NODE_ENV: 'invalid',
+        APP_NAME: 'Test App',
+        APP_VERSION: '1.0.0',
+      };
+
+      expect(() => envSchema.parse(invalidData)).toThrow();
+    });
+
+    it('should reject invalid LOG_LEVEL', () => {
+      const invalidData = {
+        NODE_ENV: 'development',
+        APP_NAME: 'Test App',
+        APP_VERSION: '1.0.0',
+        LOG_LEVEL: 'invalid',
+      };
+
+      expect(() => envSchema.parse(invalidData)).toThrow();
+    });
+
+    it('should reject empty APP_NAME', () => {
+      const invalidData = {
+        NODE_ENV: 'development',
+        APP_NAME: '',
+        APP_VERSION: '1.0.0',
+      };
+
+      expect(() => envSchema.parse(invalidData)).toThrow();
+    });
+  });
+
   describe('type safety', () => {
     it('should have correct types for all properties', () => {
       expect(typeof env.NODE_ENV).toBe('string');
@@ -92,32 +148,15 @@ describe('Environment Configuration', () => {
   });
 
   describe('error handling', () => {
-    it('should handle validation with missing variables in production', () => {
-      // Test the validation logic for production environment
-      const originalNodeEnv = process.env.NODE_ENV;
-      const originalAppName = process.env.APP_NAME;
+    it('should handle validation with invalid data', () => {
+      // Test Zod validation with invalid data
+      const invalidData = {
+        NODE_ENV: 'invalid-env',
+        APP_NAME: 'Test App',
+        APP_VERSION: '1.0.0',
+      };
 
-      // Set up production environment
-      process.env.NODE_ENV = 'production';
-      delete process.env.APP_NAME;
-
-      expect(() => {
-        const isTestEnv = process.env.NODE_ENV === 'test';
-        const requiredVars = isTestEnv
-          ? ['NODE_ENV']
-          : ['NODE_ENV', 'APP_NAME'];
-        const missingVars = requiredVars.filter((key) => !process.env[key]);
-
-        if (missingVars.length > 0) {
-          throw new Error(
-            `Missing required environment variables: ${missingVars.join(', ')}`
-          );
-        }
-      }).toThrow('Missing required environment variables: APP_NAME');
-
-      // Restore environment variables
-      process.env.NODE_ENV = originalNodeEnv;
-      process.env.APP_NAME = originalAppName;
+      expect(() => envSchema.parse(invalidData)).toThrow();
     });
   });
 });
