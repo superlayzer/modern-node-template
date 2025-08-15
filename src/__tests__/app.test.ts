@@ -17,11 +17,6 @@ describe('App Module', () => {
       expect(app.version).toBe('1.0.0');
     });
 
-    it('should have port property', () => {
-      expect(app).toHaveProperty('port');
-      expect(typeof app.port).toBe('number');
-    });
-
     it('should have environment property', () => {
       expect(app).toHaveProperty('environment');
       expect(typeof app.environment).toBe('string');

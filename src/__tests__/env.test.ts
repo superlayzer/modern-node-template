@@ -17,7 +17,6 @@ describe('Environment Configuration', () => {
   describe('env object', () => {
     it('should have all required properties', () => {
       expect(env).toHaveProperty('NODE_ENV');
-      expect(env).toHaveProperty('PORT');
       expect(env).toHaveProperty('APP_NAME');
       expect(env).toHaveProperty('APP_VERSION');
       expect(env).toHaveProperty('LOG_LEVEL');
@@ -26,7 +25,6 @@ describe('Environment Configuration', () => {
     it('should have correct default values', () => {
       // In test environment, NODE_ENV will be 'test'
       expect(env.NODE_ENV).toBe('test');
-      expect(env.PORT).toBe(3000);
       expect(env.APP_NAME).toBe('Modern Node Template');
       expect(env.APP_VERSION).toBe('1.0.0');
       expect(env.LOG_LEVEL).toBe('info');
@@ -35,19 +33,16 @@ describe('Environment Configuration', () => {
     it('should parse environment variables correctly', () => {
       // Set some environment variables
       process.env.NODE_ENV = 'production';
-      process.env.PORT = '8080';
 
       // Note: We need to reload the module to pick up new env vars
       // For this test, we'll just verify the getter function works
       expect(getEnv('NODE_ENV')).toBe('test'); // Current test environment
-      expect(getEnv('PORT')).toBe(3000); // Default value
     });
   });
 
   describe('getEnv function', () => {
     it('should return environment values', () => {
       expect(getEnv('NODE_ENV')).toBe('test');
-      expect(getEnv('PORT')).toBe(3000);
       expect(getEnv('APP_NAME')).toBe('Modern Node Template');
     });
   });
@@ -80,9 +75,6 @@ describe('Environment Configuration', () => {
         expect.stringContaining('🌍 Environment:')
       );
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('🚀 Port:')
-      );
-      expect(consoleSpy).toHaveBeenCalledWith(
         expect.stringContaining('📊 Log Level:')
       );
 
@@ -93,7 +85,6 @@ describe('Environment Configuration', () => {
   describe('type safety', () => {
     it('should have correct types for all properties', () => {
       expect(typeof env.NODE_ENV).toBe('string');
-      expect(typeof env.PORT).toBe('number');
       expect(typeof env.APP_NAME).toBe('string');
       expect(typeof env.APP_VERSION).toBe('string');
       expect(typeof env.LOG_LEVEL).toBe('string');
@@ -104,19 +95,17 @@ describe('Environment Configuration', () => {
     it('should handle validation with missing variables in production', () => {
       // Test the validation logic for production environment
       const originalNodeEnv = process.env.NODE_ENV;
-      const originalPort = process.env.PORT;
       const originalAppName = process.env.APP_NAME;
 
       // Set up production environment
       process.env.NODE_ENV = 'production';
-      delete process.env.PORT;
       delete process.env.APP_NAME;
 
       expect(() => {
         const isTestEnv = process.env.NODE_ENV === 'test';
         const requiredVars = isTestEnv
           ? ['NODE_ENV']
-          : ['NODE_ENV', 'PORT', 'APP_NAME'];
+          : ['NODE_ENV', 'APP_NAME'];
         const missingVars = requiredVars.filter((key) => !process.env[key]);
 
         if (missingVars.length > 0) {
@@ -124,11 +113,10 @@ describe('Environment Configuration', () => {
             `Missing required environment variables: ${missingVars.join(', ')}`
           );
         }
-      }).toThrow('Missing required environment variables: PORT, APP_NAME');
+      }).toThrow('Missing required environment variables: APP_NAME');
 
       // Restore environment variables
       process.env.NODE_ENV = originalNodeEnv;
-      process.env.PORT = originalPort;
       process.env.APP_NAME = originalAppName;
     });
   });

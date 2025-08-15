@@ -31,6 +31,7 @@ npm start
 
 ## 🚀 Features
 
+- **Generic Template** - Works for any Node.js application type (CLI, API, library, etc.)
 - **TypeScript** - Modern TypeScript configuration with strict type checking
 - **ESLint v9** - Latest ESLint with flat configuration
 - **Prettier** - Code formatting with consistent style
@@ -410,12 +411,14 @@ This project uses dotenv for environment variable management with type-safe conf
    ```bash
    # Environment Configuration
    NODE_ENV=development
-   PORT=3000
 
    # Application Configuration
    APP_NAME=Your App Name
    APP_VERSION=1.0.0
    LOG_LEVEL=info
+
+   # Optional: Only needed for web applications (Express, Fastify, etc.)
+   # PORT=3000
    ```
 
 ### Usage
@@ -444,6 +447,7 @@ validateEnvironment();
 - **Validation**: Automatic validation of required variables
 - **Parsing**: Automatic parsing of numbers
 - **Error Handling**: Clear error messages for missing variables
+- **Flexible Configuration**: Optional PORT for non-web applications
 
 ### Adding Feature Flags
 
@@ -554,6 +558,35 @@ npm install -D package-name
 - **ESLint**: Edit `eslint.config.js`
 - **Prettier**: Edit `.prettierrc`
 - **Nodemon**: Edit `nodemon.json`
+
+## 🎯 Application Types
+
+This template is designed to be **truly generic** and works for any Node.js application:
+
+### Web Applications (Express, Fastify, etc.)
+
+```bash
+# Add PORT to your .env file
+PORT=3000
+```
+
+### CLI Tools
+
+```bash
+# No PORT needed - just use the template as-is
+```
+
+### Libraries
+
+```bash
+# No PORT needed - export your functions/modules
+```
+
+### Scripts
+
+```bash
+# No PORT needed - run your logic and exit
+```
 
 ## 📞 Support
 
