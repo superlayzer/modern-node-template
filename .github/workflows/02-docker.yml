@@ -2,7 +2,7 @@ name: '02 - Docker Build and Push'
 
 on:
   workflow_run:
-    workflows: ['Semantic Release']
+    workflows: ['01 - CI/CD Pipeline']
     types:
       - completed
     branches: [main]
@@ -11,20 +11,61 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build Docker image
+      - name: Debug - List all tags
+        run: |
+          echo "All tags:"
+          git tag -l
+          echo "All branches:"
+          git branch -a
+          echo "Current commit:"
+          git log --oneline -1
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get version from package.json
+        id: version
+        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=ref,event=branch
+            type=sha
+          flavor: |
+            latest=auto
+
+      - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           file: ./docker/Dockerfile
-          push: false
-          tags: node-typescript-template:latest
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}:v${{ steps.version.outputs.version }}
+            ghcr.io/${{ github.repository }}:main
+            ghcr.io/${{ github.repository }}:sha-${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
