@@ -10,7 +10,7 @@ name: '04 - Deploy to Development'
 # 3. Confirm you want to proceed
 # 4. Click Run workflow
 #
-# REQUIRED SECRETS:
+# REQUIRED SECRETS (set in GitHub Environments → development):
 # - CAPROVER_SERVER_DEV: Your development CapRover server URL
 # - APP_NAME_DEV: The name of your development CapRover app
 # - APP_TOKEN_DEV: The deployment token from your development CapRover app
@@ -63,9 +63,9 @@ jobs:
       - name: Deploy to Development CapRover
         uses: caprover/deploy-from-github@v1.1.2
         with:
-          server: ${{ secrets.CAPROVER_SERVER_DEV }}
-          app: ${{ secrets.APP_NAME_DEV }}
-          token: ${{ secrets.APP_TOKEN_DEV }}
+          server: '${{ secrets.CAPROVER_SERVER_DEV }}'
+          app: '${{ secrets.APP_NAME_DEV }}'
+          token: '${{ secrets.APP_TOKEN_DEV }}'
           image: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
 
       - name: Development Deployment Summary

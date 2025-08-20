@@ -10,7 +10,7 @@ name: '05 - Deploy to Production'
 # 3. Confirm you want to proceed
 # 4. Click Run workflow
 #
-# REQUIRED SECRETS:
+# REQUIRED SECRETS (set in GitHub Environments → production):
 # - CAPROVER_SERVER_PROD: Your production CapRover server URL
 # - APP_NAME_PROD: The name of your production CapRover app
 # - APP_TOKEN_PROD: The deployment token from your production CapRover app
@@ -63,9 +63,9 @@ jobs:
       - name: Deploy to Production CapRover
         uses: caprover/deploy-from-github@v1.1.2
         with:
-          server: ${{ secrets.CAPROVER_SERVER_PROD }}
-          app: ${{ secrets.APP_NAME_PROD }}
-          token: ${{ secrets.APP_TOKEN_PROD }}
+          server: '${{ secrets.CAPROVER_SERVER_PROD }}'
+          app: '${{ secrets.APP_NAME_PROD }}'
+          token: '${{ secrets.APP_TOKEN_PROD }}'
           image: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
 
       - name: Production Deployment Summary
