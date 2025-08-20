@@ -1,8 +1,0 @@
-services:
-  app:
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile
-    container_name: node-typescript-app
-    environment:
-      - NODE_ENV=development
