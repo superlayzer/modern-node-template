@@ -25,7 +25,7 @@ winston.addColors(colors);
 const level = () => {
   const env = process.env.NODE_ENV || 'development';
   const isDevelopment = env === 'development';
-  return isDevelopment ? 'debug' : 'warn';
+  return isDevelopment ? 'info' : 'warn'; // Use 'warn' in production to reduce log noise
 };
 
 // Define format for logs
@@ -48,9 +48,15 @@ const transports = [
   new winston.transports.File({
     filename: 'logs/error.log',
     level: 'error',
+    maxsize: 5242880, // 5MB max file size
+    maxFiles: 2, // Keep only 2 files
   }),
   // Allow to print all the messages inside the all.log file
-  new winston.transports.File({ filename: 'logs/all.log' }),
+  new winston.transports.File({
+    filename: 'logs/all.log',
+    maxsize: 5242880, // 5MB max file size
+    maxFiles: 3, // Keep only 3 files
+  }),
 ];
 
 // Create the logger

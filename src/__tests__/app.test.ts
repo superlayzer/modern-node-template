@@ -1,11 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { app } from '@/index';
+import { app, getHealthStatus } from '@/index';
 
 describe('App Module', () => {
   describe('app object', () => {
     it('should have the correct structure', () => {
       expect(app).toHaveProperty('name');
       expect(app).toHaveProperty('version');
+      expect(app).toHaveProperty('environment');
       expect(app).toHaveProperty('start');
     });
 
@@ -27,14 +28,35 @@ describe('App Module', () => {
     });
   });
 
-  describe('app.start()', () => {
-    it('should not throw when called', () => {
-      expect(() => app.start()).not.toThrow();
+  describe('getHealthStatus', () => {
+    it('should return a health status object', () => {
+      const health = getHealthStatus();
+
+      expect(health).toHaveProperty('status');
+      expect(health).toHaveProperty('processedItems');
+      expect(health).toHaveProperty('errors');
     });
 
-    it('should log a success message', () => {
-      // Since we're using Winston logger, just verify the method doesn't throw
-      expect(() => app.start()).not.toThrow();
+    it('should return initial health status', () => {
+      const health = getHealthStatus();
+
+      expect(health.status).toBe('healthy');
+      expect(health.processedItems).toBe(0);
+      expect(health.errors).toBe(0);
+    });
+  });
+
+  describe('app.start()', () => {
+    it('should not throw when called', async () => {
+      // Simple test that the function can be called without errors
+      // Use a timeout since the app runs indefinitely
+      app.start();
+
+      // Wait a short time to ensure it starts without throwing
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // If we get here, it didn't throw during startup
+      expect(true).toBe(true);
     });
   });
 });

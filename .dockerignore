@@ -1,0 +1,10 @@
+# Exclude everything by default
+*
+
+# Include only what's needed for Docker build
+!package.json
+!package-lock.json
+!tsconfig.json
+!src/
+!env.example
+!docker/Dockerfile
