@@ -7,6 +7,12 @@ export default defineConfig({
     environment: 'node',
     include: ['**/*.{test,spec}.{js,ts}'],
     exclude: ['node_modules/**', 'dist/**'],
+    env: {
+      NODE_ENV: 'test',
+      APP_NAME: 'Modern Node Template',
+      APP_VERSION: 'test-version',
+      LOG_LEVEL: 'info',
+    },
     coverage: {
       provider: 'v8',
       reporter: ['text'],

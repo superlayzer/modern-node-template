@@ -63,6 +63,11 @@ jobs:
           context: .
           file: ./docker/Dockerfile
           push: true
+          build-args: |
+            APP_NAME=Modern Node Template
+            APP_VERSION=${{ steps.version.outputs.version }}
+            BUILD_DATE=${{ github.event.head_commit.timestamp || github.event.workflow_run.created_at }}
+            VCS_REF=${{ github.sha }}
           tags: |
             ghcr.io/${{ github.repository }}:v${{ steps.version.outputs.version }}
             ghcr.io/${{ github.repository }}:main

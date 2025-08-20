@@ -10,11 +10,8 @@ const envSchema = z.object({
   NODE_ENV: z
     .enum(['development', 'production', 'test'])
     .default('development'),
-  APP_NAME: z
-    .string()
-    .min(1, 'APP_NAME is required')
-    .default('Modern Node Template'),
-  APP_VERSION: z.string().min(1, 'APP_VERSION is required').default('1.0.0'),
+  APP_NAME: z.string().min(1, 'APP_NAME is required'),
+  APP_VERSION: z.string().min(1, 'APP_VERSION is required'),
   LOG_LEVEL: z.enum(['error', 'warn', 'info', 'http', 'debug']).default('info'),
 });
 

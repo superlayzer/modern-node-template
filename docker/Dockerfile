@@ -1,5 +1,23 @@
 FROM node:24-alpine
 
+# Build arguments
+ARG APP_NAME
+ARG APP_VERSION
+ARG BUILD_DATE
+ARG VCS_REF
+
+# Environment variables (available at runtime)
+ENV APP_NAME=${APP_NAME}
+ENV APP_VERSION=${APP_VERSION}
+ENV BUILD_DATE=${BUILD_DATE}
+ENV VCS_REF=${VCS_REF}
+
+# Labels for better image identification
+LABEL org.opencontainers.image.title="${APP_NAME}"
+LABEL org.opencontainers.image.version="${APP_VERSION}"
+LABEL org.opencontainers.image.created="${BUILD_DATE}"
+LABEL org.opencontainers.image.revision="${VCS_REF}"
+
 WORKDIR /app
 
 # Copy package files

@@ -6,6 +6,13 @@ logger.info('🚀 Modern Node.js TypeScript Template');
 logger.info(testMessage);
 logger.info('✨ Ready to build amazing things!');
 
+// Log version information if available
+if (process.env.APP_VERSION) {
+  logger.info(`📦 App Version: ${process.env.APP_VERSION}`);
+  logger.info(`🔨 Build Date: ${process.env.BUILD_DATE || 'Unknown'}`);
+  logger.info(`🔗 Git Commit: ${process.env.VCS_REF || 'Unknown'}`);
+}
+
 // Validate environment configuration
 validateEnvironment();
 
