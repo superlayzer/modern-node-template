@@ -1,6 +1,6 @@
 {
   "branches": ["main"],
-  "repositoryUrl": "git@github-layzer:superlayzer/modern-node-template.git",
+  "repositoryUrl": "git@github.com:superlayzer/modern-node-template.git",
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
