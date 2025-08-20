@@ -1,8 +1,8 @@
-name: '02 - Docker Build and Push'
+name: '03 - Docker Build and Push'
 
 on:
   workflow_run:
-    workflows: ['01 - CI/CD Pipeline']
+    workflows: ['02 - Semantic Release']
     types:
       - completed
     branches: [main]
