@@ -63,9 +63,9 @@ jobs:
       - name: Deploy to Development CapRover
         uses: caprover/deploy-from-github@v1.1.2
         with:
-          server: '${{ secrets.CAPROVER_SERVER_DEV }}'
-          app: '${{ secrets.APP_NAME_DEV }}'
-          token: '${{ secrets.APP_TOKEN_DEV }}'
+          server: ${{ secrets.CAPROVER_SERVER_DEV }}
+          app: ${{ secrets.APP_NAME_DEV }}
+          token: ${{ secrets.APP_TOKEN_DEV }}
           image: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
 
       - name: Development Deployment Summary
