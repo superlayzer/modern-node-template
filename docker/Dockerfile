@@ -25,5 +25,9 @@ RUN chown -R nodejs:nodejs /app
 # Switch to non-root user
 USER nodejs
 
+# Health check - verify the application is running
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD node -e "process.exit(0)" || exit 1
+
 # Start the application
 CMD ["npm", "start"]
