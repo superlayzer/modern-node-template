@@ -15,6 +15,10 @@ npm pkg set description="Your project description"
 npm pkg set repository.url="git@github.com:yourusername/your-project-name.git"
 npm pkg set author="Your Name"
 
+# Customize application name (optional but recommended)
+# Replace "Modern Node Template" with your app name in the workflow file
+sed -i 's/Modern Node Template/Your App Name/g' .github/workflows/03-docker.yml
+
 # Install dependencies and setup
 npm install
 npm run prepare
@@ -124,9 +128,11 @@ cp env.example .env
 
 # Edit with your values
 NODE_ENV=development
-APP_NAME=Your App Name
+APP_NAME=Your App Name          # This will be injected at Docker build time
 LOG_LEVEL=info
 ```
+
+**Note**: `APP_NAME` and `APP_VERSION` are automatically injected during Docker builds via GitHub Actions, so you don't need to set them in your `.env` file for production deployments.
 
 ## 📚 Development Workflow
 
